@@ -1,0 +1,16 @@
+# Ignore virtual environment folders
+venv/
+*.pyc
+# Add virtual environment folder to .gitignore
+venv/
+# Ignore compiled Python files
+*.pyc
+# Ignore cache directories
+# Ignore virtual environment folder
+venv/
+
+# Ignore compiled Python files
+*.pyc
+
+# Ignore cache directories
+__pycache__/
