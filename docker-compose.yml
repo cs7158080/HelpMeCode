@@ -8,9 +8,9 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: password
       # - ./init_user_collection.js:/docker-entrypoint-initdb.d/init_user_collection.js
     healthcheck:
       test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
@@ -23,7 +23,7 @@ services:
   # Python Server Service
   server:
     build:
-      context: ./server # Path to your server folder
+      context: ./Server # Path to your server folder
       dockerfile: ./DockerFile
     container_name: python-server
     ports:
