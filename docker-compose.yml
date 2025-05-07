@@ -28,6 +28,8 @@ services:
     container_name: python-server
     ports:
       - "8000:8000" # Maps the server port
+    volumes:
+      - ./Server/app:/app 
     environment:
       - MONGO_URI=mongodb://root:password@mongo:27017/mydatabase
     depends_on:
