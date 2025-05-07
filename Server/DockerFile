@@ -2,19 +2,22 @@
 FROM python:3.10-slim
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /appD
+
+# Set PYTHONPATH to include /appD
+ENV PYTHONPATH=/appD
 
 # Copy the requirements file into the container
 COPY requirements.txt .
 
 # Install the dependencies
-# --no-cache-dir
 RUN pip install --upgrade pip && pip install -r requirements.txt --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org
-# Copy the rest of the application code into the container
-COPY ./app /app
+
+# Copy the application code into the container
+COPY ./appD /appD
+
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Define the command to run the application
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-# @ check about tests
+CMD ["uvicorn", "appD.app:app", "--host", "0.0.0.0", "--port", "8000"]

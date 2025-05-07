@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from pymongo.errors import ConnectionError
 import os
 
 class MongoConnection:
@@ -14,7 +13,7 @@ class MongoConnection:
             self.client = MongoClient(self.uri)
             self.database = self.client[self.database_name]
             print(f"Connected to MongoDB database: {self.database_name}")
-        except ConnectionError as e:
+        except Exception as e:
             print(f"Failed to connect to MongoDB: {e}")
             raise
 
@@ -27,4 +26,6 @@ class MongoConnection:
         if self.client:
             self.client.close()
             print("MongoDB connection closed.")
+# Export the class for external usage
+mongo_connection = MongoConnection()
 
