@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from Server.appD.db.connection import MongoConnection  # Ensure the path matches your project structure
-from Server.appD.db.operations import GenericModel  # Adjusted to match a typical module structure
-from Server.appD.db.services.user_service import UserService  # Ensure the path matches your project structure
-
+from appD.db.connection import MongoConnection  # Ensure the path matches your project structure
+from appD.db.operations import GenericModel  # Adjusted to match a typical module structure
+from appD.db.services.user_service import UserService  # Ensure the path matches your project structure
+from routes.users import router as users_router
 # This file can be empty or contain package-level imports or initializations
 app = FastAPI()
 connectToMongo = MongoConnection()
