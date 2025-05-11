@@ -1,4 +1,4 @@
-class UserService:
+class Users:
     def __init__(self, user_model):
         self.user_model = user_model
 
