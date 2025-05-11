@@ -14,8 +14,6 @@ def read_root():
 
 @app1.post("/{name}")
 def read(name: str):
-    if not connectToMongo.client:
-        return {"error": "Failed to connect to the database."}
     
     user_model = MongoOperations(connectToMongo.database, 'users')
     user_service = Users(user_model)
