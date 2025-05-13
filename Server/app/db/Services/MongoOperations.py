@@ -17,4 +17,16 @@ class MongoOperations:
 
     def get_item(self, item_id):
         return self.collection.find_one({'_id': item_id})
+    
+    def get_items_by_filter(self, filter=None):
+        if filter is None:
+            return list(self.collection.find())
+        else:
+            return list(self.collection.find(filter))
+
+    def aggregate(self, pipeline):
+        if not pipeline:
+            return list(self.collection.find())
+        else:
+            return list(self.collection.aggregate(pipeline))    
         

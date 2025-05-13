@@ -1,30 +1,19 @@
 from fastapi import FastAPI
-from db.Services.MongoConnection import MongoConnection  # Ensure the path matches your project structure
-from db.Services.MongoOperations import MongoOperations  # Adjusted to match a typical module structure
-from db.Modules.users import Users  # Ensure the path matches your project structure
+from db.Services.dependencies import startup_db_client, shutdown_db_client
+from routers.quentions import router as question_router
 
-# This file can be empty or contain package-level imports or initializations
 app1 = FastAPI()
-connectToMongo = MongoConnection()
-connectToMongo.connect()
+
+@app1.on_event("startup")
+def startup_event():
+    startup_db_client()
+
+@app1.on_event("shutdown")
+def shutdown_event():
+    shutdown_db_client()
+
 @app1.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI server!"}
 
-
-@app1.post("/{name}")
-def read(name: str):
-    
-    user_model = MongoOperations(connectToMongo.database, 'users')
-    user_service = Users(user_model)
-    user_data = user_service.create_user({name: name})
-    if user_data:
-        return {"message": f"Hello, {name}!"}
-    else:
-        return {"message": f"User {name} not found."}
-
-@app1.get("/hello/{name}")
-def read_item(name: str):
-    return {"message": f"Hello, {name}!"}
-
-
+app1.include_router(question_router, prefix="/question", tags=["questions"])
