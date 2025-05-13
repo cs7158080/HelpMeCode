@@ -25,12 +25,12 @@ class Quentions:
             return None
     
     def get_quentions_by_tags(self, tags):
-        filter = {'tags': {'$in': tags}}
+        filter = {'Tags': {'$in': tags}}
         pipeline = [
             {'$match': filter},
             {'$project': {
-                'tags': 1,
-                'match_count': {'$size': {'$setIntersection': ['$tags', tags]}}
+            'Tags': 1,
+            'match_count': {'$size': {'$setIntersection': ['$Tags', tags]}}
             }},
             {'$sort': {'match_count': -1}}
         ]
@@ -39,4 +39,4 @@ class Quentions:
             response = [{**item, "_id": str(item["_id"])} for item in response]
             return response
         else:
-            return {"message : response is not found"}
+            return {"message": "Response not found"}
