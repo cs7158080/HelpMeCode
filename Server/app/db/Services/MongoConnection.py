@@ -17,10 +17,10 @@ class MongoConnection:
             print(f"Failed to connect to MongoDB: {e}")
             raise
 
-    # def get_database(self):
-    #     if not self.database:
-    #         raise Exception("Database connection is not established. Call connect() first.")
-    #     return self.database
+    def get_database(self):
+        if not self.database:
+            raise Exception("Database connection is not established. Call connect() first.")
+        return self.database
 
     def close(self):
         if self.client:
