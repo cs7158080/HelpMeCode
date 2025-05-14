@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from routers.tags import router as tags_router  
+from routers.tags import router as tags_router 
+from routers.question import router as question_router 
 from db.Services.dependencies import startup_db_client, shutdown_db_client
 
 app1 = FastAPI()
