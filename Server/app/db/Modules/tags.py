@@ -1,7 +1,9 @@
 
 from pydantic import BaseModel
+
 class Tag(BaseModel):
     tagname: str
+
 
 class TagService:
     def __init__(self, tags_model):
