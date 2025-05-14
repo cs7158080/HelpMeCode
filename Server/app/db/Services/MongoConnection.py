@@ -18,7 +18,7 @@ class MongoConnection:
             raise
 
     def get_database(self):
-        if not self.database:
+        if self.database is None:
             raise Exception("Database connection is not established. Call connect() first.")
         return self.database
 
