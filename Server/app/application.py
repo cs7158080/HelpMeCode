@@ -1,8 +1,17 @@
 from fastapi import FastAPI
+from db.Services.MongoConnection import MongoConnection  
+from db.Services.MongoOperations import MongoOperations 
 from db.Services.dependencies import startup_db_client, shutdown_db_client
-from routers.quentions import router as question_router
+from db.Modules.users import User
+from routes.tags import router as tags_router  
+from routes.users import router as users_router  
 
 app1 = FastAPI()
+connectToMongo = MongoConnection()
+connectToMongo.connect()
+
+app1.include_router(tags_router, prefix="/tags")
+app1.include_router(users_router, prefix="/users")
 
 @app1.on_event("startup")
 def startup_event():

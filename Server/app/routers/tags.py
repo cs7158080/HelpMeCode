@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 router = APIRouter(tags=["tags"]) 
-from db.Services.MongoConnection import MongoConnection  # Ensure the path matches your project structure
-from db.Services.MongoOperations import MongoOperations  # Adjusted to match a typical module structure
+from db.Services.MongoConnection import MongoConnection 
+from db.Services.MongoOperations import MongoOperations  
 from db.Modules.tags import Tag, TagService
 connectToMongo = MongoConnection()
 connectToMongo.connect()

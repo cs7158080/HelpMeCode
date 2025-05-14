@@ -2,3 +2,4 @@ pymongo==4.12.1
 fastapi==0.100.0
 requests==2.31.0
 uvicorn
+email-validator
