@@ -1,6 +1,6 @@
 from fastapi import FastAPI
+from routers.tags import router as tags_router  
 from db.Services.dependencies import startup_db_client, shutdown_db_client
-from routers.quentions import router as question_router
 
 app1 = FastAPI()
 
@@ -17,3 +17,9 @@ def read_root():
     return {"message": "Welcome to the FastAPI server!"}
 
 app1.include_router(question_router, prefix="/question", tags=["questions"])
+app1.include_router(tags_router, prefix="/tags")
+
+
+
+
+
