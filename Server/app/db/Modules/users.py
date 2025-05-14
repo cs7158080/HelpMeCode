@@ -25,8 +25,7 @@ class UserService:
         return users
 
     def create_user(self, user_data):
-        user_instance = User(**user_data)
-        user_dict = user_instance.dict()
+        user_dict = user_data.dict()
         result = self.user_model.add_item(user_dict)
         return str(result.inserted_id)
 

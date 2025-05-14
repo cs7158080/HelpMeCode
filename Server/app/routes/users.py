@@ -15,8 +15,7 @@ def get_users_service(
 
 @router.post("/add")
 def add_user(user: User, user_service=Depends(get_users_service)):
-    user_data = user.dict()  
-    user_id = user_service.create_user(user_data) 
+    user_id = user_service.create_user(user) 
     return {"message": "User created successfully", "user_id": user_id}  
     
 @router.get("/getall")
