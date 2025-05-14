@@ -23,7 +23,7 @@ services:
   # Python Server Service
   server:
     build:
-      context: ./Server # Path to your server folder
+      context: ./server # Path to your server folder
       dockerfile: ./DockerFile
     container_name: python-server
     ports:
@@ -35,7 +35,7 @@ services:
     depends_on:
       - mongodb # Ensures server waits for MongoDB to start
 
-  # Frontend Client Service
+ # Frontend Client Service
   client:
     build:
       context: ./client # Path to your client folder
@@ -44,7 +44,7 @@ services:
     ports:
       - "3000:3000" # Maps the client port
     depends_on:
-      - server # Ensures client waits for the server to start 
+     - server # Ensures client waits for the server to start 
 volumes:
   mongo-data:
-    driver: local  
+    driver: local 
