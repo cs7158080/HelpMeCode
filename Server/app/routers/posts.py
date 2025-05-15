@@ -27,7 +27,7 @@ def get_all_posts(posts_service=Depends(get_posts_service)):
 def get_last_post(posts_service=Depends(get_posts_service)):
     return posts_service.get_last_post()
 
-@router.get("/getPostsByTags")
+@router.get("/getPostsByTags/{tags}")
 def get_posts_by_tags(tags: str, posts_service=Depends(get_posts_service)):
     tags_list = [int(tag) for tag in tags.split(",")]
     return posts_service.get_posts_by_tags(tags_list)

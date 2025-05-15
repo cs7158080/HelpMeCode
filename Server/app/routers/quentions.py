@@ -27,7 +27,7 @@ def get_all_quentions(quentions_service=Depends(get_quentions_service)):
 def get_last_quention(quentions_service=Depends(get_quentions_service)):
     return quentions_service.get_last_quention()
 
-@router.get("/getQuentionsByTags")
+@router.get("/getQuentionsByTags:{tags}")
 def get_quentions_by_tags(tags: str, quentions_service=Depends(get_quentions_service)):
     tags_list = [int(tag) for tag in tags.split(",")]
     return quentions_service.get_quentions_by_tags(tags_list)
