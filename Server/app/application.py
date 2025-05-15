@@ -1,8 +1,16 @@
 from fastapi import FastAPI
 from routers.tags import router as tags_router 
+<<<<<<< Updated upstream
 from routers.quentions import router as question_router
 from routers.users import router as users_router
 from db.Services.dependencies import startup_db_client, shutdown_db_client
+=======
+from routers.quentions import router as question_router 
+from db.Services.dependencies import startup_db_client, shutdown_db_client
+from routers.users import router as users_router
+
+
+>>>>>>> Stashed changes
 app1 = FastAPI()
 
 app1.include_router(tags_router, prefix="/tags")

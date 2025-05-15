@@ -1,0 +1,6 @@
+<p>home works!</p>
+       <label for="">שם תג</label>
+        <select formControlName="tagname" >
+            <option *ngFor="let tagname of alltags"  [value]="tag"   >{{tag.name}}</option>
+        </select>
+        <span *ngIf="getControlErrors('tagname')?.['required']" class="error">*</span>
