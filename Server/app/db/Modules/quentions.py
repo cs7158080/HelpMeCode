@@ -1,5 +1,12 @@
+from pydantic import BaseModel
 
-class Quentions:
+class Quention(BaseModel):
+    Date: str
+    Context: str
+    Tags: list[int]
+    UserId: str
+
+class QuentionModel:
     def __init__(self, quention_model):
         self.quention_model = quention_model
 
@@ -12,7 +19,7 @@ class Quentions:
             return {"message : response is not found"}
 
     def create_quention(self, quention_data):
-        result = self.quention_model.add_item(quention_data)
+        result = self.quention_model.add_item(quention_data.dict())
         return {"inserted_id": str(result.inserted_id)} if result else {"message": "Insertion failed"}
 
     def get_last_quention(self):

@@ -1,12 +1,8 @@
 from fastapi import FastAPI
-from db.Services.dependencies import startup_db_client, shutdown_db_client
+from db.Services.dependencies import shutdown_db_client
 from routers.quentions import router as question_router
 
 app1 = FastAPI()
-
-@app1.on_event("startup")
-def startup_event():
-    startup_db_client()
 
 @app1.on_event("shutdown")
 def shutdown_event():
