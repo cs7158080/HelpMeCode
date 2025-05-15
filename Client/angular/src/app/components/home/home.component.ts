@@ -2,10 +2,11 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { Tag } from '../../modules/interface';
 import { TagService } from '../../services/tag/tag.service';
-
+import { CommonModule } from '@angular/common'; // הוספת CommonModule
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  imports: [CommonModule],
   styleUrls: ['./home.component.scss'] // תוקן מ-styleUrl ל-styleUrls
 })
 export class HomeComponent implements OnInit {
@@ -34,11 +35,14 @@ export class HomeComponent implements OnInit {
   //   }
   // }
 
-  getall() {
-    this.tagService.getAlltags().subscribe(data => {
-      this.alltags = data;
-    });
-  }
+getall() {
+  this.tagService.getAlltags().subscribe(
+    data => 
+      this.alltags = data
+  );
+}
+
+
 
   getControlErrors(controlName: string): ValidationErrors | null {
     return this.myForm.controls[controlName].errors;

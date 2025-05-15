@@ -11,6 +11,6 @@ export class TagService {
     constructor(private http: HttpClient) { }
 
     getAlltags(): Observable<Array<Tag>>{
-        return this.http.get<Array<Tag>>(`${this.baseUrl}/tags/getAllTags`)        
+        return this.http.get<Array<Tag>>(`${this.baseUrl}/tags/getalltags`)        
     }
 }

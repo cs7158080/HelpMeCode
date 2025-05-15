@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TagService } from './services/tag/tag.service';
 import { HomeComponent } from './components/home/home.component';
-import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet ],
-  providers: [DataService],
+  providers: [TagService,HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
