@@ -42,9 +42,12 @@ services:
       dockerfile: DockerFile
     container_name: frontend-client
     ports:
-      - "3000:3000" # Maps the client port
+      - "4200:4200" # Maps the client port
+    volumes:
+      - ./Client/angular:/app # Sync the Angular code with the container
+      - /app/node_modules
     depends_on:
-     - server # Ensures client waits for the server to start 
+      - server # Ensures client waits for the server to start
 volumes:
   mongo-data:
     driver: local 

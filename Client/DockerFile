@@ -1,28 +1,19 @@
+FROM node:18-alpine
 
-FROM node:18-alpine AS build
-
+# הגדרת תיקיית העבודה
 WORKDIR /app
 
-
+# העתקת קבצי package.json ו-package-lock.json
 COPY angular/package*.json ./
+
+# התקנת התלויות
 RUN npm install
 
-
+# העתקת שאר קבצי הפרויקט
 COPY angular/ ./
 
-RUN npm run build
+# חשיפת הפורט שבו Angular ירוץ
+EXPOSE 4200
 
-
-FROM node:18
-
-WORKDIR /app
-
-
-COPY --from=build /app/dist/angular /app
-
-
-RUN npm install -g http-server
-
-EXPOSE 3000
-
-CMD ["http-server", "/app/browser", "-p", "3000"]
+# הפעלת האפליקציה עם ng serve
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0", "--poll", "2000"]
