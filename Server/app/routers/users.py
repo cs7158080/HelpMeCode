@@ -1,7 +1,9 @@
-from fastapi import APIRouter,Depends
+from fastapi import APIRouter,Depends,Query
 from db.Modules.users import User,UserService
 from db.Services.dependencies import get_mongo_operations, get_db
 from functools import lru_cache
+from typing import List
+
 
 
 router = APIRouter(tags=["users"])
@@ -20,24 +22,27 @@ def add_user(user: User, user_service=Depends(get_users_service)):
     
 @router.get("/getall")
 def get_all_users(user_service=Depends(get_users_service)):
-    return user_service.get_all_users()
- 
+   return  user_service.get_all_users()
+     
+
 @router.get("/getuserbyname/{username}")
 def get_user_by_name(username: str,user_service=Depends(get_users_service)):
     user = user_service.get_user_by_name(username)
     return user
 
-@router.get("/getusersbytag/{tag}")
-def get_users_by_tag(tag: str,user_service=Depends(get_users_service)):
-    users_by_tag = user_service.get_users_by_tag(tag)
-    return users_by_tag
 
-@router.get("/getusersbytagvaluetrue/{tag}")
-def get_users_by_tag_value(tag: str,user_service=Depends(get_users_service)):
-    users_by_tag_value = user_service.get_users_by_tag_value_true(tag)
-    return users_by_tag_value
+@router.get("/getusersbytags/")
+def get_users_by_tags(tags: List[str] = Query(...), user_service=Depends(get_users_service)):
+    users_by_tags = user_service.get_users_by_tags(tags)
+    return users_by_tags
 
-@router.get("/getusersbytagvaluefalse/{tag}")
-def get_users_by_tag_value_false(tag: str,user_service=Depends(get_users_service)):
-    users_by_tag_value_false = user_service.get_users_by_tag_value_false(tag)
-    return users_by_tag_value_false
+
+@router.get("/getusersbytagstrue/")
+def get_users_by_tags_true(tags: List[str] = Query(...), user_service=Depends(get_users_service)):
+    users_by_tags = user_service.get_users_by_tags_flag(tags, True)
+    return users_by_tags
+
+@router.get("/getusersbytagsfalse/")
+def get_users_by_tags_false(tags: List[str] = Query(...), user_service=Depends(get_users_service)):
+    users_by_tags = user_service.get_users_by_tags_flag(tags, False)
+    return users_by_tags

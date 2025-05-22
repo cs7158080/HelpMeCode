@@ -1,17 +1,25 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routers.tags import router as tags_router 
-from routers.question import router as question_router 
-from db.Services.dependencies import startup_db_client, shutdown_db_client
+from routers.quentions import router as question_router
+from routers.users import router as users_router
+from db.Services.dependencies import shutdown_db_client
 
 app1 = FastAPI()
 
 
-app1.include_router(tags_router, prefix="/tags")
-app1.include_router(users_router, prefix="/users")
+origins = [
+    "http://localhost:4200"
+]
 
-@app1.on_event("startup")
-def startup_event():
-    startup_db_client()
+app1.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"], 
+)
+
 
 @app1.on_event("shutdown")
 def shutdown_event():
@@ -21,10 +29,11 @@ def shutdown_event():
 def read_root():
     return {"message": "Welcome to the FastAPI server!"}
 
-app1.include_router(question_router, prefix="/question", tags=["questions"])
+app1.include_router(question_router, prefix="/questions")
+app1.include_router(tags_router, prefix="/tags")
+app1.include_router(users_router, prefix="/users")
 
 
-
-
-
-
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("application:app1", host="0.0.0.0", port=8000, reload=True)

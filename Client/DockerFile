@@ -1,28 +1,15 @@
-
-FROM node:18 AS build
+FROM node:18-alpine
 
 WORKDIR /app
 
-
 COPY angular/package*.json ./
-RUN npm install
 
+RUN npm install
 
 COPY angular/ ./
 
-RUN npm run build
+EXPOSE 4200
+
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0", "--poll", "2000"]
 
 
-FROM node:18
-
-WORKDIR /app
-
-
-COPY --from=build /app/dist/angular /app
-
-
-RUN npm install -g http-server
-
-EXPOSE 3000
-
-CMD ["http-server", "/app/browser", "-p", "3000"]
