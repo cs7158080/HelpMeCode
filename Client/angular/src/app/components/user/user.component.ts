@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../modules/interfaces';
 import { CommonModule } from '@angular/common';
-
+import { UserDetailsComponent } from '../user-details/user-details.component'
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule],
+  imports: [CommonModule,UserDetailsComponent],
   standalone: true,
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
@@ -31,6 +31,7 @@ export class UserComponent implements OnInit {
       }
     );
   }
+  
     loadUsersByName(name: string): void {
     this.userService.getUsersByName(name).subscribe(
       (data: User) => {
@@ -52,7 +53,6 @@ export class UserComponent implements OnInit {
       }
     );
   }
-
 
   
   loadUsersByTagsTrue(tags: string[]): void {
@@ -76,7 +76,6 @@ export class UserComponent implements OnInit {
       }
     );
   }
-
 
 }
 

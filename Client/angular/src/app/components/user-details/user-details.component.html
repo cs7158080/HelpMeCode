@@ -1,0 +1,9 @@
+<div>
+  <h3>{{ user.name }}</h3>
+  <p>Email: {{ user.email }}</p>
+  <ul>
+    <li *ngFor="let tag of user.tags">
+      Tag: {{ tag.tag.tagname }}, Can Help: {{ tag.canhelp }}
+    </li>
+  </ul>
+</div>

@@ -1,8 +1,3 @@
 .env
 **/__pycache__/
-<<<<<<< HEAD
 /Client/angular/node_modules
-=======
-Client/angular/node_modules
-*.pyc
->>>>>>> 2c5704495807b500217b9483b386f6de334baec7

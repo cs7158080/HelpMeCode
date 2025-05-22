@@ -1,7 +1,7 @@
 <p>User works</p>
 <p>Users:</p>
- <ul>
+<ul>
   <li *ngFor="let user of users">
-     {{ user.name }} 
+    <app-user-details [user]="user"></app-user-details>
   </li>
-</ul> 
+</ul>
