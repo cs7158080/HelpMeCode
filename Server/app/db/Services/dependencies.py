@@ -1,23 +1,28 @@
 from fastapi import Depends
 from db.Services.MongoOperations import MongoOperations
 from db.Services.MongoConnection import MongoConnection
+from functools import lru_cache
 
-mongo_client = None
-
-def startup_db_client():
-    global mongo_client
+@lru_cache()
+def get_mongo_client():
+    """
+    Create and cache a MongoDB client.
+    """
     mongo_client = MongoConnection()
     mongo_client.connect()
-    print("MongoDB client connected.")
+    return mongo_client
 
-def shutdown_db_client():
-    global mongo_client
+def shutdown_db_client(mongo_client = Depends(get_mongo_client)):
+    """
+    Close the MongoDB client when the application shuts down.
+    """
     if mongo_client:
         mongo_client.close()
-        print("MongoDB client disconnected.")
 
-def get_db():
-    global mongo_client
+def get_db(mongo_client = Depends(get_mongo_client)):
+    """
+    Dependency to provide a MongoDB database connection.
+    """
     if not mongo_client:
         raise Exception("MongoDB client is not initialized.")
     return mongo_client.get_database()

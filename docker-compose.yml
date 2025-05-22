@@ -1,6 +1,6 @@
 
 services:
-  # MongoDB Service
+
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -20,31 +20,30 @@ services:
 
      
 
-  # Python Server Service
   server:
     build:
-      context: ./server # Path to your server folder
+      context: ./server 
       dockerfile: ./DockerFile
     container_name: python-server
     ports:
-      - "8000:8000" # Maps the server port
+      - "8000:8000" 
     volumes:
       - ./Server/app:/app 
     environment:
       - MONGO_URI=mongodb://root:password@mongo:27017/mydatabase
     depends_on:
-      - mongodb # Ensures server waits for MongoDB to start
+      - mongodb 
 
- # Frontend Client Service
+
   client:
     build:
-      context: ./client # Path to your client folder
+      context: ./client
       dockerfile: DockerFile
     container_name: frontend-client
     ports:
-      - "3000:3000" # Maps the client port
+      - "4200:4200"
     depends_on:
-     - server # Ensures client waits for the server to start 
+      - server
 volumes:
   mongo-data:
     driver: local 

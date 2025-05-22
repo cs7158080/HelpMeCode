@@ -7,12 +7,10 @@ class UserTag(BaseModel):
     canhelp: bool 
 
 
-
 class User(BaseModel):
     name: str
     email: EmailStr 
     tags: List[UserTag] 
-
 
 
 class UserService:
@@ -41,18 +39,27 @@ class UserService:
             return user
         return None
 
-
-    def get_users_by_tag(self, tag_name: str):
-        filter = {"tags.tag.tagname": tag_name}
+    def get_users_by_tags(self, tag_names: List[str]):
+        filter = {"tags.tag.tagname": {"$all": tag_names}}
         users = self.user_model.getAllItems(filter=filter)
         return self.objectid_to_string(users)
 
-    def get_users_by_tag_value_true(self, tag_name: str):
-        filter = {"tags": {"$elemMatch": {"tag.tagname": tag_name, "canhelp": True}}}  
-        users = self.user_model.getAllItems(filter=filter)
+
+  
+    def get_users_by_tags_flag(self, tag_names: List[str], canhelp: bool):
+        pipeline = [
+            {
+                '$match': {
+                    'tags': {
+                        '$all': [{'$elemMatch': {'tag.tagname': tag_name,'canhelp': canhelp}} for tag_name in tag_names ]
+                    }
+                }
+            },
+            {'$project': {'name': 1,'email': 1,'tags': 1}},
+            { '$sort': { 'name': 1 }}
+        ]
+        
+        users = list(self.user_model.aggregate(pipeline))
         return self.objectid_to_string(users)
 
-    def get_users_by_tag_value_false(self, tag_name: str):
-        filter = {"tags": {"$elemMatch": {"tag.tagname": tag_name, "canhelp": False}}} 
-        users = self.user_model.getAllItems(filter=filter)
-        return self.objectid_to_string(users)
+  

@@ -15,7 +15,7 @@ class MongoOperations:
         if sort_field:
          return list(self.collection.find().sort(sort_field, sort_order))
         else:
-            return list(self.collection.find())  # ללא מיון
+            return list(self.collection.find()) 
       else:
        if sort_field:
          return list(self.collection.find(filter).sort(sort_field, sort_order))
@@ -25,11 +25,11 @@ class MongoOperations:
     def add_item(self, item_data):
         return self.collection.insert_one(item_data)
 
-    # צריך את זה?
+
     def get_item(self, item_id):
         return self.collection.find_one({'_id': item_id})
     
-    # משאירה את זה בינתיים כי השתמשתי בזה
+
     def get_items_by_filter(self, filter=None):
         if filter is None:
             return list(self.collection.find())
