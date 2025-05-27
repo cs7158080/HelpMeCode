@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 FROM node:18-alpine
-=======
-
-FROM node:18-alpine AS build
->>>>>>> 2c5704495807b500217b9483b386f6de334baec7
 
 WORKDIR /app
 
